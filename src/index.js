@@ -72,6 +72,8 @@ function addBackendLikes(numberOfLikes) {
 
 function displayComments(commentList){
 
+    let commentText_field = document.getElementById("comment_input");
+    let commentSubmitButton = document.getElementById("comment_submit_button");
     let commentUl = document.getElementById("comments");
 
     commentList.forEach(function(individualComment){
@@ -79,4 +81,37 @@ function displayComments(commentList){
       li.innerText = individualComment.content;
       commentUl.append(li);
     })
+
+    commentSubmitButton.addEventListener("click", function(e){
+      e.preventDefault()
+      let userSubmission = commentText_field.value;
+      commentList.push(userSubmission); //this is adding string to the last element but commentList has an object from API.
+      commentUl.append(`${userSubmission}`)
+      addBackendComments(userSubmission)
+    })
+
+
+    //list items are not displaying properly until refresh
+
+
+}
+
+
+function addBackendComments(userSubmission){
+
+  const url = "https://randopic.herokuapp.com/comments"
+  let submissionBody = {
+    "image_id": 11,
+    "content": userSubmission
+  }
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(submissionBody)
+  })
+
 }
