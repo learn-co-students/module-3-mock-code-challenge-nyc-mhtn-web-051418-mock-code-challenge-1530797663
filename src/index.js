@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
   commentsList.addEventListener("click", handleDeletingComment);
 
   function handleDeletingComment(event) {
-    const idToDelete = event.target.dataset.commentId;
-    const elementToDelete = event.target.parentElement;
-    deleteCommentFromDb(idToDelete);
-    deleteCommentFromDom(elementToDelete)
+    if (event.target.dataset.commentId) {
+      const idToDelete = event.target.dataset.commentId;
+      const elementToDelete = event.target.parentElement;
+      deleteCommentFromDb(idToDelete);
+      deleteCommentFromDom(elementToDelete)
+  }
   }
 
   function deleteCommentFromDom(elementToDelete) {
@@ -64,9 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
       body: JSON.stringify(payload)
     }
   ;
-
     fetch(commentsURL, configObj).then( resp => resp.json()).then(commentJson => generateAndAppendComment(commentJson))
-
   }
 
 
