@@ -3,10 +3,14 @@ document.addEventListener('DOMContentLoaded', function() {
   const imageId = 8 //Enter your assigned imageId here
 
   const imgTag = document.getElementById("image");
-  const likesTag = document.getElementById("likes");
   const imgNameTag = document.getElementById("name");
-  const commentsList = document.getElementById("comments");
+
+  const likesTag = document.getElementById("likes");
   const likeButton = document.getElementById("like_button");
+
+  const commentsList = document.getElementById("comments");
+  const commentsForm = document.getElementById("comment_form");
+  const commentInput = document.getElementById("comment_input");
 
   const imageURL = `https://randopic.herokuapp.com/images/${imageId}`
 
@@ -17,6 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const testFetch = fetch(imageURL).then( resp => resp.json() ).then( imgJson => loadAndDisplayData(imgJson));
 
   likeButton.addEventListener("click", addLike);
+  commentsForm.addEventListener("submit", addNewComment);
+
+  function addNewComment(event) {
+    event.preventDefault();
+    let comment = new Comment(commentInput.value);
+    commentInput.value = ""; 
+    generateAndAppendComment(comment);
+
+  }
+
 
   function addLike(event) {
     likesTag.innerText++;
