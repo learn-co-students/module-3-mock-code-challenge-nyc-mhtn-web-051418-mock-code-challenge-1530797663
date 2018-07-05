@@ -33,7 +33,7 @@ For this challenge it is important to work iteratively, one feature at a time, b
 
 We have provided what we believe to be a good breakdown of how to approach the this problem.
 
-## Step 1 - Get the Image Data
+<!-- ## Step 1 - Get the Image Data
 
 When the page loads you will need to make a request to the API to get the data about your picture. The API follows RESTful conventions.
 
@@ -69,7 +69,7 @@ Use the data from the API response to append the information to the DOM. You wil
 
 Use the example html to guide you as to where this data should go.
 
-(If you cannot get your fetch request to work correctly you can always use the example response above to append content to the DOM and work with for the subsequent steps)
+(If you cannot get your fetch request to work correctly you can always use the example response above to append content to the DOM and work with for the subsequent steps) -->
 
 ## Step 2 - Like Feature (Frontend)
 

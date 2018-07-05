@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const imgTag = document.getElementById("image");
   const likesTag = document.getElementById("likes");
+  const imgNameTag = document.getElementById("name");
   const commentsList = document.getElementById("comments");
+  const likeButton = document.getElementById("like_button");
 
   const imageURL = `https://randopic.herokuapp.com/images/${imageId}`
 
@@ -14,8 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const testFetch = fetch(imageURL).then( resp => resp.json() ).then( imgJson => loadAndDisplayData(imgJson));
 
+  likeButton.addEventListener("click", addLike);
+
+  function addLike(event) {
+    likesTag.innerText++; 
+  }
+
   function loadAndDisplayData(imgObj) {
     imgTag.src = `${imgObj.url}`;
+    imgNameTag.innerText = imgObj.name;
     likesTag.innerText = imgObj.like_count
     handleDisplayingComments(imgObj);
   }
