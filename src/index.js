@@ -22,16 +22,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
   likeButton.addEventListener("click", addLike);
   commentsForm.addEventListener("submit", addNewComment);
+  commentsList.addEventListener("click", handleDeletingComment);
+
+  function handleDeletingComment(event) {
+    const idToDelete = event.target.dataset.commentId;
+    const elementToDelete = event.target.parentElement;
+    deleteCommentFromDb(idToDelete);
+    deleteCommentFromDom(elementToDelete)
+  }
+
+  function deleteCommentFromDom(elementToDelete) {
+    elementToDelete.remove();
+  }
+
+  function deleteCommentFromDb(idToDelete) {
+    const urlToDelete = commentsURL + `/${idToDelete}`;
+    const configObj = {
+      method: 'DELETE'
+    }
+    fetch(urlToDelete, configObj);
+  }
 
   function addNewComment(event) {
     event.preventDefault();
     let comment = new Comment(commentInput.value);
     commentInput.value = "";
-    generateAndAppendComment(comment);
-    postCommentToDb(comment);
+    handlePostingAndCreatingComment(comment);
   }
 
-  function postCommentToDb(comment) {
+  function handlePostingAndCreatingComment(comment) {
     const payload = {
       content: comment.content,
       image_id: imageId
@@ -44,8 +63,10 @@ document.addEventListener('DOMContentLoaded', function() {
       },
       body: JSON.stringify(payload)
     }
+  ;
 
-    fetch(commentsURL, configObj)//.then( (resp) => console.log(resp); resp.json()).then( json => console.log(json));
+    fetch(commentsURL, configObj).then( resp => resp.json()).then(commentJson => generateAndAppendComment(commentJson))
+
   }
 
 
@@ -77,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function generateAndAppendComment(comment) {
     let newComment = document.createElement("li");
     newComment.innerText = comment.content;
-    newComment.innerHTML += "<button>Delete</button>"
+    newComment.innerHTML += `<button data-comment-id="${comment.id}">Delete</button>`
     commentsList.appendChild(newComment);
   }
 })
