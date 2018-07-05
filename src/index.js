@@ -15,16 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const comments = document.getElementById("comments");
   const submit = document.getElementById("submit");
 
-
-
-  // Delete
-  deleteComment = (commentID) => {
-    const deleteButton = document.querySelector(`[data-button-id="${commentID}"]`)
-    return deleteButton.addEventListener('click',event => {
-      debugger
+  // Delete comment
+  deleteComment = () => {
+    const deleteButtons = document.querySelectorAll('.deleteButton');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click',event => {
+        const commentID = parseInt(event.target.dataset.buttonId);
+        fetch(`${commentsURL}/${commentID}`,{method:'DELETE'})
+        event.target.parentElement.remove();
+      })
     })
   }
-  
 
   // Fetch image data from the server and populate the page
   getImage = () => {
@@ -34,9 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
       image.src = data.url; // Insert image into 'image' id
       image.dataset.id = data.id;
       data.comments.forEach(comment => {
-        comments.innerHTML += `<li data-id="${comment.id}"> ${comment.content} <button data-button-id="${comment.id}"> x </button> </li>`
-        deleteComment(comment.id);
+        comments.innerHTML += `<li data-id="${comment.id}"> ${comment.content} <button class="deleteButton" data-button-id="${comment.id}"> x </button> </li>`
       })
+      deleteComment();
     })
   }
 
@@ -50,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          image_id: imgID
+        image_id: imgID
       })
     }
     return fetch(likeURL,postAPIConfig)
@@ -76,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-          image_id: imgID,
-          content: comment
+        image_id: imgID,
+        content: comment
       })
     }
     return fetch(commentsURL,postCommentConfig);
@@ -93,8 +94,6 @@ document.addEventListener('DOMContentLoaded', function() {
     postComment(commentInput.value);
     commentInput.value = "";
   })
-
-
 
   getImage();
 
