@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   //element definitions
-  const imageId = 7 //Enter your assigned imageId here\
-  const imageURL = `https://randopic.herokuapp.com/images/${imageId}`
-  const likeURL = `https://randopic.herokuapp.com/likes/`
+  const imageId = 7; //Enter your assigned imageId here\
+  const imageURL = `https://randopic.herokuapp.com/images/${imageId}`;
+  const likeURL = `https://randopic.herokuapp.com/likes/`;
   const commentsURL = `https://randopic.herokuapp.com/comments/`;
   const likeButton = document.getElementById("like_button");
   const likes = document.getElementById("likes");
-  const submitButton = document.getElementById("submit")
+  const submitButton = document.getElementById("submit");
   likeButton.addEventListener('click', addLikesFe);
   submitButton.addEventListener('click', submitComment);
   const commentForm = document.getElementById("comment_form");
