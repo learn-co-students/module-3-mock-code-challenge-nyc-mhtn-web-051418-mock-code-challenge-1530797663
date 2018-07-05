@@ -17,11 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
   function loadAndDisplayData(imgObj) {
     imgTag.src = `${imgObj.url}`;
     likesTag.innerText = imgObj.like_count
-    displayComments(imgObj);
+    handleDisplayingComments(imgObj);
   }
 
-  function displayComments(imgObj) {
-
+  function handleDisplayingComments(imgObj) {
+      imgObj.comments.forEach( comment => generateAndAppendComment(comment))
   }
-  debugger;
+
+  function generateAndAppendComment(comment) {
+    let newComment = document.createElement("li");
+    newComment.innerText = comment.content;
+    commentsList.appendChild(newComment);
+  }
 })
