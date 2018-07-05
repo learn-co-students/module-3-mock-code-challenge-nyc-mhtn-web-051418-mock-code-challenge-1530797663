@@ -1,30 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-  let likesCounter = 0;
-
+//variables
+  //url and image
   const imageId = 1; //Alberto Image id 1
-
   const imageURL = `https://randopic.herokuapp.com/images/${imageId}`;
-
   const likeURL = `https://randopic.herokuapp.com/likes/`;
-
   const commentsURL = `https://randopic.herokuapp.com/comments/`;
 
+  //html element selectors
   const imageContainer = document.getElementById("imageContainer");
-
   const likeBtn = document.getElementById("like_button");
-
-  let likeDisplay = document.getElementById("likes");
-
   const commentBtn = document.getElementById("submitComment");
-
   const commentInput = document.getElementById("comment_input");
-
   const commentContainer = document.getElementById("comments");
 
+  //like functionality
+  let likesCounter = 0;
+  let likeDisplay = document.getElementById("likes");
+
+  //delete functionality
   const btnIcon = `<img src="http://icons.iconarchive.com/icons/icons8/windows-8/256/Programming-Delete-Sign-icon.pngv" alt="delete button" style="width:5px;height:5px;">`
 
+//static event listeners
+likeBtn.addEventListener("click", function(e) {
+  likesCounter = ++likesCounter;
+  likeDisplay.innerHTML = likesCounter;
+  saveCounter(likesCounter);
+})
 
+//functionality
   //like functionality
   function saveCounter(likesCounter){
     const likesURL = "https://randopic.herokuapp.com/likes";
@@ -40,9 +44,10 @@ document.addEventListener('DOMContentLoaded', function() {
     likeDisplay.innerHTML = likesCounter;
   }
 
+  //comment functionality
   function buildComments(respComments){
     const array = respComments.map(function(comment){
-      return `<li id=${comment.id}>${comment.content}</li><img src="https://image.flaticon.com/icons/svg/60/60761.svg" alt="delete button" style="width:10px;height:10px;">`;
+      return `<div class="commentLine"><li>${comment.content}</li><img class="trashIcon" id=${comment.id} src="https://image.flaticon.com/icons/svg/60/60761.svg" alt="delete button" style="width:10px;height:10px;"></div><br>`;
     })
     return array;
   }
@@ -52,19 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
     commentContainer.innerHTML = builtComment.join("");
   }
 
-  likeBtn.addEventListener("click", function(e) {
-    likesCounter = ++likesCounter;
-    likeDisplay.innerHTML = likesCounter;
-    saveCounter(likesCounter);
-  })
-
+  //image functionality
   function displayImage(r) {
     const rURL = r.url
     const rName = r.name
     imageContainer.innerHTML = `<img src="${rURL}" alt="rName"><h2>"${rName}"</h2>`
     displayLikes(r.like_count);
     displayComments(r.comments);
-
   }
 
   //comment functionality
@@ -80,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch(commentsURL, configObj).then(r => r.json()).then(console.log)
   })
 
+//fetch & init
   fetch(imageURL).then(r => r.json()).then( r => displayImage(r) );
 
 })
