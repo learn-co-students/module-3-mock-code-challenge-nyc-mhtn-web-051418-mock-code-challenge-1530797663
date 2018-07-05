@@ -79,12 +79,15 @@ function displayComments(commentList){
       e.preventDefault()
       let userSubmission = commentText_field.value;
       commentList.push(userSubmission); //this is adding string to the last element but commentList has an object from API. Probably not neccessary at all, but not enough time to figure out since everything works.
+      let newLi = document.createElement("li")
+      newLi.innerText = userSubmission;
+      commentUl.append(newLi);
 
-      commentUl.append(`${userSubmission}`)
+      // commentUl.append(`${userSubmission}`)
       addBackendComments(userSubmission)
     })
 
-
+    //comments seem to be displaying in an unexpected order after refresh.
     //list items are not displaying properly until refresh
 
 
