@@ -72,12 +72,12 @@ Use the example html to guide you as to where this data should go.
 (If you cannot get your fetch request to work correctly you can always use the example response above to append content to the DOM and work with for the subsequent steps) -->
 
 ## Step 2 - Like Feature (Frontend)
-
+<!--
 The next feature to approach is the functionality to add likes to a picture. First get this working in the browser only without worrying about persistence.
 
 Clicking the 'Like' button should increase the number of likes by one.
 
-A user can like the same picture multiple times.
+A user can like the same picture multiple times. -->
 
 ## Step 3 - Like Feature (Backend)
 

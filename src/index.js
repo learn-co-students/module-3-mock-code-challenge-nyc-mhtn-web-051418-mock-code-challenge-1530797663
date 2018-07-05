@@ -19,8 +19,18 @@ document.addEventListener('DOMContentLoaded', function() {
   likeButton.addEventListener("click", addLike);
 
   function addLike(event) {
-    likesTag.innerText++; 
-  }
+    likesTag.innerText++;
+    const payload = {image_id: imageId};
+    const configObj = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }
+  fetch(likeURL, configObj)
+}
 
   function loadAndDisplayData(imgObj) {
     imgTag.src = `${imgObj.url}`;
