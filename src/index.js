@@ -26,9 +26,26 @@ document.addEventListener('DOMContentLoaded', function() {
   function addNewComment(event) {
     event.preventDefault();
     let comment = new Comment(commentInput.value);
-    commentInput.value = ""; 
+    commentInput.value = "";
     generateAndAppendComment(comment);
+    postCommentToDb(comment);
+  }
 
+  function postCommentToDb(comment) {
+    const payload = {
+      content: comment.content,
+      image_id: imageId
+    }
+    const configObj = {
+      method: 'POST',
+      headers: {
+        'Accept':'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }
+
+    fetch(commentsURL, configObj)//.then( (resp) => console.log(resp); resp.json()).then( json => console.log(json));
   }
 
 
@@ -60,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function generateAndAppendComment(comment) {
     let newComment = document.createElement("li");
     newComment.innerText = comment.content;
+    newComment.innerHTML += "<button>Delete</button>"
     commentsList.appendChild(newComment);
   }
 })

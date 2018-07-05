@@ -118,7 +118,7 @@ The next feature to approach is the functionality to add comments to a picture. 
 
 Filling out the input and clicking 'Submit' should append your new comment as an `<li>` to the comments unordered list element. You should also clear out the comment input, so it's an empty field for the next comment to be added. -->
 
-## Step 5 - Comment Feature (Backend)
+<!-- ## Step 5 - Comment Feature (Backend)
 
 As before, after optimistically rendering a comment we need to persist the comment to the database.
 
@@ -153,7 +153,7 @@ Example Response (created comment):
 Since we are using optimistic rendering, you shouldn't have to do anything with the response.
 
 To test your code you should be able to refresh the page and see any comments you added.
-
+ -->
 ## BONUS - NOT REQUIRED
 
 ## Step 6 - Delete a comment feature
